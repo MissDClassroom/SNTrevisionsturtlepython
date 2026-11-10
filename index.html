@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fiches de révision SNT</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Mise en page : cahier quadrillé, une colonne de fiches, barre de navigation collante, code en encadré « écran » */
+:root{
+  --bg:#f3f7f5;
+  --paper:#ffffff;
+  --grid:#dfe9e5;
+  --ink:#16302b;
+  --muted:#557069;
+  --line:#cfdcd7;
+  --accent:#0f8a6a;
+  --accent-soft:#dff3ec;
+  --warm:#e0702f;
+  --warm-soft:#fcebe0;
+  --code-bg:#13231f;
+  --code-fg:#e6f2ee;
+  --code-kw:#7fd9b4;
+  --code-fn:#ffc48a;
+  --code-num:#f7a6c7;
+  --code-com:#8aa79f;
+  --ok:#1f9d55; --mid:#d98a14; --ko:#d04437;
+  --f-display:"Bricolage Grotesque", "Trebuchet MS", system-ui, sans-serif;
+  --f-body:"Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --f-code:"JetBrains Mono", ui-monospace, "Cascadia Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0e1a17; --paper:#14231f; --grid:#1a2c27; --ink:#e3efeb; --muted:#9ab5ad; --line:#2a3f39;
+  --accent:#4cc79f; --accent-soft:#173a30; --warm:#f29a5c; --warm-soft:#3a2518;
+  --code-bg:#0a1310; --code-fg:#e6f2ee; --code-kw:#7fd9b4; --code-fn:#ffc48a; --code-num:#f7a6c7; --code-com:#7d978f;
+  --ok:#3ccb7f; --mid:#f0ad3c; --ko:#f07163;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0e1a17; --paper:#14231f; --grid:#1a2c27; --ink:#e3efeb; --muted:#9ab5ad; --line:#2a3f39;
+  --accent:#4cc79f; --accent-soft:#173a30; --warm:#f29a5c; --warm-soft:#3a2518;
+  --code-bg:#0a1310; --code-fg:#e6f2ee; --code-kw:#7fd9b4; --code-fn:#ffc48a; --code-num:#f7a6c7; --code-com:#7d978f;
+  --ok:#3ccb7f; --mid:#f0ad3c; --ko:#f07163;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{
+  background-color:var(--bg);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:24px 24px;
+  color:var(--ink);font-family:var(--f-body);font-size:1.0625rem;line-height:1.6;
+}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
+.wrap{max-width:860px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;line-height:1.15;margin:0}
+p{margin:0}
+code{font-family:var(--f-code);font-size:.9em;background:var(--accent-soft);padding:.1em .35em;border-radius:4px}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid var(--warm);outline-offset:2px}
+
+/* En-tête */
+header.hero{padding-block:48px 28px}
+.hero-grid{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center}
+.eyebrow{font-family:var(--f-code);font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:600}
+.hero h1{font-size:clamp(2.2rem,6vw,3.6rem);font-weight:800;margin-top:8px;letter-spacing:-.01em}
+.hero h1 span{color:var(--accent)}
+.hero .lead{margin-top:14px;max-width:58ch;color:var(--muted)}
+.hero svg{width:150px;height:150px}
+@media (max-width:560px){.hero-grid{grid-template-columns:1fr}.hero svg{width:110px;height:110px}}
+
+/* Navigation */
+nav.fiches-nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border-block:1px solid var(--line)}
+nav .wrap{display:flex;gap:8px;overflow-x:auto;padding-block:10px;scrollbar-width:thin}
+nav a{flex:0 0 auto;text-decoration:none;color:var(--ink);font-family:var(--f-code);font-size:.85rem;padding:6px 12px;border:1px solid var(--line);border-radius:999px;background:var(--bg);white-space:nowrap}
+nav a:hover{border-color:var(--accent);color:var(--accent)}
+nav a.on{background:var(--accent);border-color:var(--accent);color:var(--paper)}
+
+main{padding-block:28px 64px;display:flex;flex-direction:column;gap:28px}
+
+/* Fiche */
+.fiche{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:28px clamp(18px,4vw,36px);display:flex;flex-direction:column;gap:18px;scroll-margin-top:72px;min-width:0}
+.fiche-head{display:flex;gap:16px;align-items:center}
+.num{flex:0 0 auto;width:52px;height:52px;border-radius:12px;display:grid;place-items:center;font-family:var(--f-display);font-weight:800;font-size:1.5rem;background:var(--accent-soft);color:var(--accent)}
+.fiche-head h2{font-size:clamp(1.4rem,3.4vw,1.85rem);font-weight:800}
+.fiche-head .tag{font-family:var(--f-code);font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:2px}
+.lead-p{font-size:1.1rem;max-width:65ch}
+h3{font-size:1.1rem;font-weight:600;color:var(--accent)}
+.block{display:flex;flex-direction:column;gap:10px;min-width:0}
+ul,ol{margin:0;padding-left:1.3em;display:flex;flex-direction:column;gap:6px;max-width:68ch}
+li::marker{color:var(--accent);font-weight:700}
+
+/* Code */
+pre{margin:0;background:var(--code-bg);color:var(--code-fg);border-radius:10px;padding:18px 20px;overflow-x:auto;font-family:var(--f-code);font-size:.92rem;line-height:1.65;position:relative}
+pre .kw{color:var(--code-kw);font-weight:600}
+pre .fn{color:var(--code-fn)}
+pre .nb{color:var(--code-num)}
+pre .cm{color:var(--code-com);font-style:italic}
+pre::before{content:"python";position:absolute;top:8px;right:12px;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--code-com)}
+
+/* Tableaux */
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:.98rem}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--f-code);font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--bg);font-weight:600}
+tr:last-child td{border-bottom:0}
+td code{white-space:nowrap}
+
+/* Encadrés */
+.note{border-radius:10px;padding:14px 18px;background:var(--warm-soft);color:var(--ink);display:flex;flex-direction:column;gap:6px}
+.note strong{color:var(--warm)}
+.train{border:2px dashed var(--accent);border-radius:10px;padding:14px 18px;display:flex;gap:12px;align-items:flex-start}
+.train .ic{flex:0 0 auto;font-family:var(--f-code);font-weight:600;font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;background:var(--accent);color:var(--paper);padding:4px 8px;border-radius:6px;margin-top:2px}
+
+/* Vocabulaire masquable */
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.btn{font:inherit;font-size:.92rem;font-weight:700;border:1px solid var(--accent);background:var(--paper);color:var(--accent);padding:8px 14px;border-radius:8px;cursor:pointer}
+.btn:hover{background:var(--accent-soft)}
+.btn[aria-pressed="true"]{background:var(--accent);color:var(--paper)}
+.hint{font-size:.88rem;color:var(--muted)}
+.vocab.hide-fr td.fr, .vocab.hide-cmd td.cmd{cursor:pointer}
+.vocab.hide-fr td.fr .v, .vocab.hide-cmd td.cmd .v{filter:blur(6px);opacity:.5;user-select:none}
+.vocab td.shown .v{filter:none!important;opacity:1!important}
+
+/* Mode d'emploi */
+.parts{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.part{border:1px solid var(--line);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:6px;background:var(--bg)}
+.part b{font-family:var(--f-display);font-size:1.05rem}
+.part .f{font-family:var(--f-code);font-size:.78rem;color:var(--accent);margin-top:auto}
+
+/* Checklist */
+.check{list-style:none;padding:0}
+.check label{display:flex;gap:10px;align-items:flex-start;cursor:pointer;padding:6px 0}
+.check input{width:20px;height:20px;accent-color:var(--accent);flex:0 0 auto;margin-top:3px}
+.check input:checked + span{color:var(--muted)}
+
+/* Autoévaluation */
+.self td:first-child{min-width:220px}
+.lvl{display:flex;gap:6px;flex-wrap:wrap}
+.lvl label{cursor:pointer}
+.lvl input{position:absolute;opacity:0;pointer-events:none}
+.lvl span{display:inline-block;font-size:.82rem;font-weight:700;padding:5px 10px;border-radius:999px;border:1.5px solid var(--line);color:var(--muted);white-space:nowrap}
+.lvl input:focus-visible + span{outline:3px solid var(--warm);outline-offset:2px}
+.lvl input[value="ok"]:checked + span{background:var(--ok);border-color:var(--ok);color:var(--paper)}
+.lvl input[value="mid"]:checked + span{background:var(--mid);border-color:var(--mid);color:var(--paper)}
+.lvl input[value="ko"]:checked + span{background:var(--ko);border-color:var(--ko);color:var(--paper)}
+.score{display:flex;gap:16px;flex-wrap:wrap;font-variant-numeric:tabular-nums}
+.score div{display:flex;align-items:baseline;gap:6px}
+.score b{font-family:var(--f-display);font-size:1.8rem}
+.score .s-ok b{color:var(--ok)} .score .s-mid b{color:var(--mid)} .score .s-ko b{color:var(--ko)}
+.bar{height:10px;border-radius:999px;background:var(--bg);border:1px solid var(--line);overflow:hidden;display:flex}
+.bar i{display:block;height:100%;transition:width .3s}
+details.corr{border:1px solid var(--line);border-radius:10px;background:var(--bg)}
+details.corr summary{cursor:pointer;padding:10px 14px;font-weight:700;color:var(--accent);list-style:none}
+details.corr summary::-webkit-details-marker{display:none}
+details.corr summary::before{content:"+ ";font-family:var(--f-code)}
+details.corr[open] summary::before{content:"− "}
+details.corr .in{padding:0 14px 14px;display:flex;flex-direction:column;gap:8px}
+.ex{display:flex;flex-direction:column;gap:12px;padding-top:18px;border-top:1px solid var(--line)}
+.lead-p + .ex{border-top:0;padding-top:0}
+.ex h3{color:var(--ink);font-size:1.15rem}
+.ex h3 small{font-family:var(--f-code);font-size:.75rem;color:var(--warm);letter-spacing:.06em;text-transform:uppercase;margin-left:8px}
+footer{color:var(--muted);font-size:.85rem;text-align:center;padding-block:0 40px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+html{scroll-behavior:smooth}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Seconde · SNT · avant le test</div>
+      <h1>Fiches de révision <span>Turtle et Python</span></h1>
+      <p class="lead">Neuf fiches pour revoir l'essentiel avant le test. Lis chaque fiche, fais le petit entraînement sur papier, puis termine par les exercices et le bilan.</p>
+    </div>
+    <svg viewBox="0 0 150 150" aria-hidden="true">
+      <path d="M75 75 h12 v-12 h-24 v24 h36 v-36 h-48 v48 h60 v-60 h-72 v72 h84" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <g transform="translate(131 147) rotate(0)">
+        <ellipse cx="0" cy="0" rx="9" ry="7" fill="var(--warm)"/>
+        <circle cx="11" cy="0" r="3.6" fill="var(--warm)"/>
+        <circle cx="-5" cy="-7" r="2.4" fill="var(--warm)"/><circle cx="5" cy="-7" r="2.4" fill="var(--warm)"/>
+        <circle cx="-5" cy="7" r="2.4" fill="var(--warm)"/><circle cx="5" cy="7" r="2.4" fill="var(--warm)"/>
+      </g>
+    </svg>
+  </div>
+</header>
+
+<nav class="fiches-nav" aria-label="Fiches">
+  <div class="wrap" id="nav">
+    <a href="#mode-emploi">Mode d'emploi</a>
+    <a href="#fiche-1">1 · Vocabulaire</a>
+    <a href="#fiche-2">2 · Structure</a>
+    <a href="#fiche-3">3 · Boucle for</a>
+    <a href="#fiche-4">4 · Indentation</a>
+    <a href="#fiche-5">5 · Imbriquées</a>
+    <a href="#fiche-6">6 · Suivre un code</a>
+    <a href="#fiche-7">7 · Erreurs</a>
+    <a href="#fiche-8">8 · Fonctions</a>
+    <a href="#fiche-9">9 · Écrire</a>
+    <a href="#exercices">Exercices</a>
+    <a href="#bilan">Je fais le point</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<section class="fiche" id="mode-emploi">
+  <div class="fiche-head"><div class="num">?</div><h2><span class="tag">Pour commencer</span>Mode d'emploi</h2></div>
+  <p class="lead-p">Le test comporte quatre types d'exercices. Repère ceux où tu te sens le moins à l'aise et commence par les fiches correspondantes.</p>
+  <div class="parts">
+    <div class="part"><b>Vocabulaire</b><span>Associer une commande turtle en anglais à ce qu'elle fait en français.</span><span class="f">Fiche 1</span></div>
+    <div class="part"><b>Suivre le code</b><span>Lire un programme et dessiner le trajet sur une grille.</span><span class="f">Fiches 3, 4, 5, 6</span></div>
+    <div class="part"><b>Compléter, corriger</b><span>Trouver la ligne manquante ou l'erreur dans un programme.</span><span class="f">Fiches 2, 4, 7</span></div>
+    <div class="part"><b>Écrire un code</b><span>Écrire seul le programme qui produit une figure.</span><span class="f">Fiches 3, 5, 9</span></div>
+  </div>
+  <div class="note"><p><strong>Conseil de travail :</strong> révise en écrivant. Recopier un code à la main et dessiner son trajet sur une feuille à carreaux retient bien mieux que le relire.</p></div>
+</section>
+
+<section class="fiche" id="fiche-1">
+  <div class="fiche-head"><div class="num">1</div><h2><span class="tag">Fiche 1</span>Le vocabulaire des commandes turtle</h2></div>
+  <p class="lead-p">Les commandes Python sont des mots anglais : si tu connais le sens du mot, tu devines ce que fait la commande. Le nombre entre parenthèses s'appelle l'<strong>argument</strong> : il précise de combien la tortue avance ou tourne.</p>
+  <div class="toolbar">
+    <button class="btn" id="hideFr" aria-pressed="false" type="button">Cacher le sens</button>
+    <button class="btn" id="hideCmd" aria-pressed="false" type="button">Cacher les commandes</button>
+    <span class="hint">Clique sur une case floue pour vérifier ta réponse.</span>
+  </div>
+  <div class="tbl">
+    <table class="vocab" id="vocab">
+      <thead><tr><th>Famille</th><th>Commandes</th><th>Le mot anglais à retenir</th></tr></thead>
+      <tbody>
+        <tr><td>Se déplacer</td><td class="cmd"><span class="v"><code>forward()</code> <code>backward()</code> <code>goto()</code></span></td><td class="fr"><span class="v">forward = vers l'avant ; backward = vers l'arrière ; go to = aller à</span></td></tr>
+        <tr><td>Tourner</td><td class="cmd"><span class="v"><code>left()</code> <code>right()</code> <code>setheading()</code></span></td><td class="fr"><span class="v">left = gauche ; right = droite ; heading = direction, cap</span></td></tr>
+        <tr><td>Le crayon</td><td class="cmd"><span class="v"><code>penup()</code> <code>pendown()</code> <code>pensize()</code></span></td><td class="fr"><span class="v">pen = stylo ; up = levé ; down = baissé ; size = taille</span></td></tr>
+        <tr><td>La couleur</td><td class="cmd"><span class="v"><code>color()</code> <code>begin_fill()</code> <code>end_fill()</code></span></td><td class="fr"><span class="v">fill = remplir ; begin = commencer ; end = finir</span></td></tr>
+        <tr><td>Les formes</td><td class="cmd"><span class="v"><code>circle()</code></span></td><td class="fr"><span class="v">circle = cercle</span></td></tr>
+        <tr><td>Le réglage</td><td class="cmd"><span class="v"><code>speed()</code> <code>done()</code></span></td><td class="fr"><span class="v">speed = vitesse ; done = terminé</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="block">
+    <h3>Les pièges classiques</h3>
+    <ul>
+      <li><code>left</code> et <code>right</code> font <strong>tourner</strong> la tortue sur place : elle ne dessine rien.</li>
+      <li>Quand le crayon est levé, la tortue se déplace <strong>sans tracer</strong>. Pense à le reposer.</li>
+      <li><code>begin_fill()</code> et <code>end_fill()</code> vont toujours <strong>par paire</strong> : l'un avant la figure, l'autre après.</li>
+      <li>Les angles sont en degrés : un quart de tour vaut 90, un demi-tour 180, un tour complet 360.</li>
+    </ul>
+  </div>
+  <div class="train"><span class="ic">Je m'entraîne</span><p>Cache le sens et retrouve-le pour chaque commande ; puis cache les commandes et fais l'inverse, du français vers l'anglais.</p></div>
+</section>
+
+<section class="fiche" id="fiche-2">
+  <div class="fiche-head"><div class="num">2</div><h2><span class="tag">Fiche 2</span>La structure d'un programme</h2></div>
+  <p class="lead-p">Un programme commence par <strong>importer</strong> la bibliothèque, puis donne les <strong>instructions</strong> une par ligne, que Python exécute de haut en bas.</p>
+<pre data-code>from turtle import *     # 1. j'importe la bibliothèque
+
+forward(100)             # 2. les instructions,
+left(90)                 #    une par ligne,
+forward(50)              #    dans l'ordre</pre>
+  <div class="block">
+    <h3>Le vocabulaire à maîtriser</h3>
+    <ul>
+      <li><strong>Bibliothèque</strong> (ou module) : une boîte d'outils déjà écrits. <code>turtle</code> pour la tortue, <code>robot</code> pour le robot du test.</li>
+      <li><strong>Importer</strong> : rendre ces outils disponibles. Sans la ligne d'import, Python ne connaît pas <code>forward</code> ni <code>avancer</code>.</li>
+      <li><strong>Instruction</strong> : un ordre donné à l'ordinateur.</li>
+      <li><strong>Séquence</strong> : une suite d'instructions exécutées dans l'ordre. Changer l'ordre change le dessin.</li>
+      <li><strong>Commentaire</strong> : tout ce qui suit <code>#</code>. Python l'ignore ; il sert au lecteur humain.</li>
+    </ul>
+  </div>
+  <div class="block">
+    <h3>Les règles d'écriture</h3>
+    <ul>
+      <li>Une instruction par ligne.</li>
+      <li>Toujours des parenthèses après le nom d'une commande, même vides : <code>penup()</code>, <code>droite()</code>.</li>
+      <li>Pas d'accent, pas d'espace dans un nom, et les minuscules comptent : <code>Forward</code> n'est pas <code>forward</code>.</li>
+      <li>L'import s'écrit <strong>une seule fois</strong>, tout en haut.</li>
+    </ul>
+  </div>
+  <div class="train"><span class="ic">Je m'entraîne</span><p>Recopie un programme vu en classe, intervertis deux lignes, et dessine les deux versions côte à côte pour voir ce qui change.</p></div>
+</section>
+
+<section class="fiche" id="fiche-3">
+  <div class="fiche-head"><div class="num">3</div><h2><span class="tag">Fiche 3</span>La boucle for et range</h2></div>
+  <p class="lead-p">Une <strong>boucle</strong> répète un bloc d'instructions un nombre de fois connu à l'avance : au lieu d'écrire dix fois la même chose, on l'écrit une fois et on dit combien de fois la répéter.</p>
+<pre data-code>for i in range(nombre_de_tours):
+    instruction_1      # le corps de la boucle :
+    instruction_2      # répété à chaque tour
+instruction_3          # après la boucle : exécutée une seule fois</pre>
+  <div class="block">
+    <h3>Les quatre éléments de la première ligne</h3>
+    <ul>
+      <li><code>for</code> : le mot qui annonce la répétition (« pour »).</li>
+      <li><code>i</code> : la <strong>variable de boucle</strong>, qui compte les tours. Son nom est libre (<code>i</code>, <code>k</code>, <code>tour</code>, <code>loop</code>).</li>
+      <li><code>in range(...)</code> : combien de fois, ou quelles valeurs prend la variable.</li>
+      <li><code>:</code> les deux-points, obligatoires en fin de ligne.</li>
+    </ul>
+  </div>
+  <div class="block">
+    <h3>Ce que donne range</h3>
+    <div class="tbl"><table>
+      <thead><tr><th>Écriture</th><th>Valeurs prises par la variable</th><th>Nombre de tours</th></tr></thead>
+      <tbody>
+        <tr><td><code>range(n)</code></td><td>de 0 jusqu'à n, <strong>n exclu</strong></td><td>n</td></tr>
+        <tr><td><code>range(début, fin)</code></td><td>de début jusqu'à fin, <strong>fin exclue</strong></td><td>fin moins début</td></tr>
+        <tr><td><code>range(début, fin, pas)</code></td><td>de début, en ajoutant le pas, sans atteindre fin</td><td>à compter</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <div class="block">
+    <h3>À retenir pour réussir</h3>
+    <ul>
+      <li>Avant d'écrire une boucle, repère le <strong>motif</strong> qui se répète dans la figure, puis compte combien de fois il revient.</li>
+      <li>Pour une figure régulière qui se referme, la tortue fait un tour complet : la somme de tous ses virages vaut 360°.</li>
+      <li>La variable de boucle peut servir dans le corps, par exemple comme longueur qui change à chaque tour.</li>
+    </ul>
+  </div>
+  <div class="train"><span class="ic">Je m'entraîne</span><p>Invente cinq <code>range</code> différents (avec 1, 2 et 3 nombres) et écris pour chacun la liste des valeurs prises par la variable et le nombre de tours.</p></div>
+</section>
+
+<section class="fiche" id="fiche-4">
+  <div class="fiche-head"><div class="num">4</div><h2><span class="tag">Fiche 4</span>L'indentation</h2></div>
+  <p class="lead-p">En Python, le <strong>retrait</strong> au début d'une ligne (l'indentation) n'est pas décoratif : c'est lui qui dit quelles lignes sont dans la boucle et lesquelles n'y sont pas.</p>
+<pre data-code>for i in range(4):
+    instruction_A      # 4 espaces : DANS la boucle, répétée 4 fois
+    instruction_B      # 4 espaces : DANS la boucle, répétée 4 fois
+instruction_C          # 0 espace : HORS de la boucle, exécutée 1 fois</pre>
+  <div class="block">
+    <h3>Les règles</h3>
+    <ul>
+      <li>Après une ligne qui finit par <code>:</code>, la ligne suivante est <strong>toujours</strong> décalée.</li>
+      <li>Le décalage standard est de <strong>4 espaces</strong> (ou une touche Tab). Toutes les lignes d'un même bloc ont exactement le même retrait.</li>
+      <li>Une boucle dans une boucle : on ajoute 4 espaces de plus, donc 8 espaces.</li>
+      <li>Revenir à la marge, c'est <strong>sortir</strong> de la boucle.</li>
+    </ul>
+  </div>
+  <div class="note"><p><strong>Pourquoi c'est décisif au test :</strong> deux programmes avec exactement les mêmes lignes peuvent produire deux dessins différents, seulement parce qu'une ligne est décalée ou non. Dans les exercices « suivre le code », regarde d'abord la marge de chaque ligne.</p></div>
+  <div class="train"><span class="ic">Je m'entraîne</span><p>Recopie un programme avec une boucle, puis dé-indente la dernière ligne de la boucle. Dessine les deux trajets et compare-les.</p></div>
+</section>
+
+<section class="fiche" id="fiche-5">
+  <div class="fiche-head"><div class="num">5</div><h2><span class="tag">Fiche 5</span>Les boucles imbriquées</h2></div>
+  <p class="lead-p">Une boucle peut contenir une autre boucle : la boucle <strong>intérieure</strong> dessine un motif, la boucle <strong>extérieure</strong> répète ce motif plusieurs fois.</p>
+<pre data-code>for i in range(3):            # boucle extérieure
+    for j in range(4):        # boucle intérieure (4 espaces)
+        instruction_A         # 8 espaces : dans les deux boucles
+    instruction_B             # 4 espaces : seulement dans l'extérieure</pre>
+  <div class="block">
+    <h3>Compter les exécutions</h3>
+    <ul>
+      <li>Une ligne dans les deux boucles s'exécute (tours de l'extérieure) <strong>multiplié</strong> par (tours de l'intérieure).</li>
+      <li>Une ligne seulement dans la boucle extérieure s'exécute autant de fois que l'extérieure.</li>
+      <li>La boucle intérieure recommence <strong>entièrement</strong> à chaque tour de l'extérieure.</li>
+      <li>Les deux variables doivent avoir des <strong>noms différents</strong> (<code>i</code> et <code>j</code>).</li>
+    </ul>
+  </div>
+  <div class="block">
+    <h3>La méthode pour écrire une boucle imbriquée</h3>
+    <ol>
+      <li>Repère le petit motif de base dans la figure.</li>
+      <li>Écris d'abord la boucle qui dessine ce motif seul, et vérifie-la en dessinant son trajet.</li>
+      <li>Repère comment la tortue doit se placer entre deux motifs.</li>
+      <li>Enveloppe le tout dans une seconde boucle, en décalant le bloc de 4 espaces.</li>
+    </ol>
+  </div>
+  <div class="train"><span class="ic">Je m'entraîne</span><p>Pour une boucle imbriquée vue en classe, calcule combien de traits sont dessinés, puis trace le trajet sur papier et compte-les pour vérifier ton calcul.</p></div>
+</section>
+
+<section class="fiche" id="fiche-6">
+  <div class="fiche-head"><div class="num">6</div><h2><span class="tag">Fiche 6</span>Suivre un code et dessiner</h2></div>
+  <p class="lead-p">Pour dessiner le trajet d'un programme sans se tromper, on joue soi-même le rôle de la tortue ou du robot, ligne par ligne, en notant sa position et sa direction.</p>
+  <div class="block">
+    <h3>Le robot du test</h3>
+    <ul>
+      <li><code>avancer()</code> : le robot avance d'<strong>un carreau</strong> dans la direction où il regarde, et trace le trait.</li>
+      <li><code>droite()</code> et <code>gauche()</code> : le robot tourne d'un quart de tour <strong>sur place</strong>, sans avancer.</li>
+      <li>Repère sur la grille le point de départ et le sens dans lequel le robot regarde au départ.</li>
+    </ul>
+  </div>
+  <div class="block">
+    <h3>La méthode en 4 étapes</h3>
+    <ol>
+      <li>Regarde les retraits : entoure le bloc de chaque boucle.</li>
+      <li>Calcule combien de tours fait chaque boucle.</li>
+      <li>Remplis un tableau de suivi, un tour après l'autre, sans sauter de ligne.</li>
+      <li>Trace sur la grille au fur et à mesure, puis vérifie que le nombre de traits correspond à ton calcul.</li>
+    </ol>
+  </div>
+  <div class="block">
+    <h3>Modèle de tableau de suivi <span class="hint">(à recopier au brouillon)</span></h3>
+    <div class="tbl"><table>
+      <thead><tr><th>Tour</th><th>Instruction</th><th>Direction après</th><th>Trait tracé ?</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+        <tr><td>1</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+        <tr><td>2</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <div class="note"><p><strong>Astuce :</strong> tourne ta feuille ou ton crayon dans le sens du robot. Gauche et droite sont ceux <strong>du robot</strong>, pas les tiens.</p></div>
+  <div class="train"><span class="ic">Je m'entraîne</span><p>Sur une feuille à carreaux, écris un petit programme de robot de 6 à 8 lignes avec une boucle, échange-le avec un camarade, et dessinez chacun le trajet de l'autre.</p></div>
+</section>
+
+<section class="fiche" id="fiche-7">
+  <div class="fiche-head"><div class="num">7</div><h2><span class="tag">Fiche 7</span>Lire les messages d'erreur</h2></div>
+  <p class="lead-p">Un message d'erreur n'est pas une punition : il donne le <strong>type</strong> d'erreur et le <strong>numéro de ligne</strong> où Python s'est arrêté. Lis toujours ces deux informations avant de corriger.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Erreur</th><th>Ce qu'elle veut dire</th><th>Où chercher</th></tr></thead>
+    <tbody>
+      <tr><td><code>SyntaxError</code></td><td>Python ne comprend pas l'écriture de la ligne</td><td>deux-points oubliés, parenthèse non fermée, faute de frappe dans <code>for</code> ou <code>in</code></td></tr>
+      <tr><td><code>IndentationError</code></td><td>le retrait est incorrect</td><td>ligne non décalée après <code>:</code>, retraits différents dans un même bloc, décalage inattendu</td></tr>
+      <tr><td><code>NameError</code></td><td>Python ne connaît pas ce nom</td><td>import oublié, faute d'orthographe, majuscule en trop, fonction utilisée avant d'être définie</td></tr>
+      <tr><td><code>TypeError</code></td><td>une commande reçoit un mauvais argument</td><td>argument manquant, en trop, ou du texte à la place d'un nombre</td></tr>
+    </tbody>
+  </table></div>
+  <div class="block">
+    <h3>À retenir</h3>
+    <ul>
+      <li>L'erreur est parfois sur la ligne <strong>juste avant</strong> celle indiquée (souvent pour une parenthèse non fermée).</li>
+      <li>Un programme sans message d'erreur peut quand même être faux : si le dessin n'est pas le bon, c'est une erreur de <strong>logique</strong> (mauvais nombre de tours, mauvais angle, ligne mal indentée).</li>
+      <li>Corrige une seule erreur à la fois, puis relis tout le programme.</li>
+    </ul>
+  </div>
+  <div class="train"><span class="ic">Je m'entraîne</span><p>Écris un programme correct, puis glisse volontairement une erreur de chaque type du tableau. Pour chacune, nomme l'erreur et la ligne où Python s'arrêterait.</p></div>
+</section>
+
+<section class="fiche" id="fiche-8">
+  <div class="fiche-head"><div class="num">8</div><h2><span class="tag">Fiche 8</span>Les fonctions</h2></div>
+  <p class="lead-p">Une <strong>fonction</strong> est une recette à laquelle on donne un nom : on l'écrit une fois avec <code>def</code>, puis on l'utilise autant de fois qu'on veut en l'<strong>appelant</strong> par son nom.</p>
+<pre data-code>def nom_de_la_fonction(parametre):    # 1. je DÉFINIS la recette
+    instruction_1                      #    le corps, décalé de 4 espaces
+    instruction_2
+
+nom_de_la_fonction(50)                 # 2. je l'APPELLE : elle s'exécute</pre>
+  <div class="block">
+    <h3>Le vocabulaire à maîtriser</h3>
+    <ul>
+      <li><strong>Définir</strong> : écrire la recette avec <code>def</code>. À ce moment, rien ne se dessine.</li>
+      <li><strong>Appeler</strong> : écrire le nom suivi de parenthèses. C'est là que la fonction s'exécute.</li>
+      <li><strong>Paramètre</strong> : le nom entre parenthèses dans <code>def</code>, qui attend une valeur.</li>
+      <li><strong>Argument</strong> : la valeur donnée à l'appel, qui remplace le paramètre.</li>
+    </ul>
+  </div>
+  <div class="block">
+    <h3>Les règles</h3>
+    <ul>
+      <li>La ligne <code>def</code> finit par <code>:</code> et le corps est décalé, comme pour une boucle.</li>
+      <li>Une fonction se définit <strong>avant</strong> d'être appelée, sinon <code>NameError</code>.</li>
+      <li>Ne donne jamais à une variable de boucle le même nom qu'une fonction : elle l'écraserait.</li>
+      <li>Une fonction peut contenir une boucle, et peut en appeler une autre.</li>
+    </ul>
+  </div>
+  <div class="train"><span class="ic">Je m'entraîne</span><p>Écris l'appel d'une même fonction avec trois arguments différents, et dessine ou décris ce que chaque appel produit.</p></div>
+</section>
+
+<section class="fiche" id="fiche-9">
+  <div class="fiche-head"><div class="num">9</div><h2><span class="tag">Fiche 9</span>Écrire un programme : méthode et vérifications</h2></div>
+  <p class="lead-p">On n'écrit pas un programme d'un seul coup : on observe la figure, on cherche le motif, on écrit un petit morceau, on le vérifie en suivant son trajet, puis on complète.</p>
+  <div class="block">
+    <h3>Avant d'écrire</h3>
+    <ol>
+      <li>Pose ton doigt sur le point de départ et suis la figure en disant chaque mouvement à voix basse (avance, tourne à droite…).</li>
+      <li>Repère le motif qui se répète et compte combien de fois.</li>
+      <li>Repère ce qui n'est <strong>pas</strong> répété : un déplacement au début, un virage entre deux parties. Ces lignes seront hors de la boucle.</li>
+    </ol>
+  </div>
+  <div class="block">
+    <h3>Pendant l'écriture</h3>
+    <ol>
+      <li>L'import en première ligne.</li>
+      <li>Le motif seul, vérifié en traçant son trajet.</li>
+      <li>La boucle autour du motif, avec le bon nombre de tours.</li>
+      <li>Les lignes hors boucle, à la marge.</li>
+    </ol>
+  </div>
+  <div class="block">
+    <h3>Ma liste de vérifications avant de valider</h3>
+    <ul class="check" id="checklist">
+      <li><label><input type="checkbox" id="c1"><span>L'import est en haut, une seule fois.</span></label></li>
+      <li><label><input type="checkbox" id="c2"><span>Chaque ligne <code>for</code> ou <code>def</code> se termine par <code>:</code>.</span></label></li>
+      <li><label><input type="checkbox" id="c3"><span>Les blocs sont décalés de 4 espaces, et tous au même niveau.</span></label></li>
+      <li><label><input type="checkbox" id="c4"><span>Chaque commande a ses parenthèses.</span></label></li>
+      <li><label><input type="checkbox" id="c5"><span>Le nombre de tours de chaque boucle correspond au motif compté.</span></label></li>
+      <li><label><input type="checkbox" id="c6"><span>J'ai relu en suivant mon code comme le robot, et le dessin obtenu est bien celui demandé.</span></label></li>
+      <li><label><input type="checkbox" id="c7"><span>Mon code est le plus court possible : s'il y a des lignes identiques répétées, une boucle peut les remplacer.</span></label></li>
+    </ul>
+    <button class="btn" id="resetCheck" type="button" style="align-self:flex-start">Tout décocher</button>
+  </div>
+  <div class="train"><span class="ic">Je m'entraîne</span><p>Dessine une figure simple sur une feuille à carreaux, puis écris de mémoire le programme qui la produit en suivant cette méthode et cette liste.</p></div>
+</section>
+
+<section class="fiche" id="exercices">
+  <div class="fiche-head"><div class="num">✎</div><h2><span class="tag">Pour finir</span>Exercices d'entraînement</h2></div>
+  <p class="lead-p">Fais chaque exercice sur papier, sans regarder les fiches, puis ouvre la correction pour vérifier.</p>
+
+  <div class="ex">
+    <h3>Exercice 1 · Que donne range ?<small>Fiche 3</small></h3>
+    <p>Pour chaque écriture, donne la liste des valeurs prises par la variable et le nombre de tours.</p>
+    <div class="tbl"><table>
+      <thead><tr><th>Écriture</th><th>Valeurs</th><th>Nombre de tours</th></tr></thead>
+      <tbody>
+        <tr><td><code>range(5)</code></td><td>&nbsp;</td><td>&nbsp;</td></tr>
+        <tr><td><code>range(2, 6)</code></td><td>&nbsp;</td><td>&nbsp;</td></tr>
+        <tr><td><code>range(1, 4)</code></td><td>&nbsp;</td><td>&nbsp;</td></tr>
+        <tr><td><code>range(0, 10, 3)</code></td><td>&nbsp;</td><td>&nbsp;</td></tr>
+      </tbody>
+    </table></div>
+    <details class="corr"><summary>Voir la correction</summary><div class="in">
+      <ul>
+        <li><code>range(5)</code> : 0, 1, 2, 3, 4, soit 5 tours.</li>
+        <li><code>range(2, 6)</code> : 2, 3, 4, 5, soit 4 tours (6 est exclu).</li>
+        <li><code>range(1, 4)</code> : 1, 2, 3, soit 3 tours.</li>
+        <li><code>range(0, 10, 3)</code> : 0, 3, 6, 9, soit 4 tours (on ajoute 3 à chaque fois, sans atteindre 10).</li>
+      </ul>
+    </div></details>
+  </div>
+
+  <div class="ex">
+    <h3>Exercice 2 · Combien de fois ?<small>Fiches 4 et 5</small></h3>
+    <p>Pour chaque programme, dis combien de fois chaque instruction du robot est exécutée.</p>
+<pre data-code>from robot import *
+for i in range(3):
+    avancer()
+    droite()
+avancer()</pre>
+<pre data-code>from robot import *
+for i in range(2):
+    for j in range(3):
+        avancer()
+    gauche()</pre>
+    <details class="corr"><summary>Voir la correction</summary><div class="in">
+      <p><strong>Programme A :</strong> <code>droite()</code> est dans la boucle, donc exécuté 3 fois. <code>avancer()</code> est exécuté 3 fois dans la boucle, plus 1 fois après (ligne à la marge), soit 4 fois en tout.</p>
+      <p><strong>Programme B :</strong> <code>avancer()</code> est dans les deux boucles : 2 × 3 = 6 fois. <code>gauche()</code> n'est que dans la boucle extérieure (4 espaces) : 2 fois.</p>
+    </div></details>
+  </div>
+
+  <div class="ex">
+    <h3>Exercice 3 · Chasse aux erreurs<small>Fiches 2, 4 et 7</small></h3>
+    <p>Ce programme contient trois erreurs. Pour chacune, donne le numéro de la ligne, le type d'erreur et la correction.</p>
+<pre data-code>from robot import *
+for i in range(4)
+    avancer()
+  droite()
+Avancer()</pre>
+    <details class="corr"><summary>Voir la correction</summary><div class="in">
+      <ul>
+        <li><strong>Ligne 2</strong> : il manque les deux-points à la fin de <code>for i in range(4)</code>. C'est une <code>SyntaxError</code>.</li>
+        <li><strong>Ligne 4</strong> : <code>droite()</code> est décalé de 2 espaces au lieu de 4 (ou 0). C'est une <code>IndentationError</code>. On le décale de 4 espaces pour qu'il soit dans la boucle.</li>
+        <li><strong>Ligne 5</strong> : <code>Avancer</code> prend une majuscule, Python ne connaît pas ce nom. C'est une <code>NameError</code>. On écrit <code>avancer()</code>.</li>
+      </ul>
+      <p class="hint">Attention : Python s'arrête à la première erreur rencontrée. Il faut donc corriger, puis relire, pour découvrir la suivante.</p>
+    </div></details>
+  </div>
+</section>
+
+<section class="fiche" id="bilan">
+  <div class="fiche-head"><div class="num">✓</div><h2><span class="tag">Bilan</span>Je fais le point</h2></div>
+  <p class="lead-p">Choisis ton niveau pour chaque ligne <strong>sans regarder les fiches</strong>. Ce qui est en rouge ou en orange te dit quoi retravailler en priorité.</p>
+  <div class="score" aria-live="polite">
+    <div class="s-ok"><b id="nOk">0</b><span>acquis</span></div>
+    <div class="s-mid"><b id="nMid">0</b><span>presque</span></div>
+    <div class="s-ko"><b id="nKo">0</b><span>à revoir</span></div>
+  </div>
+  <div class="bar" aria-hidden="true"><i id="bOk" style="background:var(--ok);width:0"></i><i id="bMid" style="background:var(--mid);width:0"></i><i id="bKo" style="background:var(--ko);width:0"></i></div>
+  <div class="tbl"><table class="self">
+    <thead><tr><th>Je sais…</th><th>Fiche</th><th>Mon niveau</th></tr></thead>
+    <tbody id="selfBody"></tbody>
+  </table></div>
+</section>
+
+</main>
+<footer class="wrap">SNT Seconde · Lycée Amiral de Grasse · fiches de révision Turtle et Python</footer>
+
+<script>
+(function(){
+  // Coloration du code
+  var KW=/(#.*$)|\b(for|in|def|from|import)\b|\b(\d+)\b|([A-Za-z_]\w*)(?=\()/gm;
+  function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+  document.querySelectorAll('pre[data-code]').forEach(function(p){
+    var src=p.textContent;
+    p.innerHTML=esc(src).replace(KW,function(m,cm,kw,nb,fn){
+      if(cm) return '<span class="cm">'+cm+'</span>';
+      if(kw) return '<span class="kw">'+kw+'</span>';
+      if(nb) return '<span class="nb">'+nb+'</span>';
+      return '<span class="fn">'+fn+'</span>';
+    });
+  });
+
+  function load(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
+  function save(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+
+  // Vocabulaire masquable
+  var vocab=document.getElementById('vocab');
+  function toggle(btn,cls){
+    btn.addEventListener('click',function(){
+      var on=btn.getAttribute('aria-pressed')!=='true';
+      btn.setAttribute('aria-pressed',on);
+      vocab.classList.toggle(cls,on);
+      vocab.querySelectorAll('td.shown').forEach(function(td){td.classList.remove('shown')});
+    });
+  }
+  toggle(document.getElementById('hideFr'),'hide-fr');
+  toggle(document.getElementById('hideCmd'),'hide-cmd');
+  vocab.addEventListener('click',function(e){
+    var td=e.target.closest('td.fr,td.cmd'); if(!td) return;
+    if((td.classList.contains('fr')&&vocab.classList.contains('hide-fr'))||(td.classList.contains('cmd')&&vocab.classList.contains('hide-cmd'))) td.classList.toggle('shown');
+  });
+
+  // Liste de vérifications
+  var ck=load('snt-rev-check',{});
+  document.querySelectorAll('#checklist input').forEach(function(i){
+    i.checked=!!ck[i.id];
+    i.addEventListener('change',function(){ck[i.id]=i.checked;save('snt-rev-check',ck)});
+  });
+  document.getElementById('resetCheck').addEventListener('click',function(){
+    ck={};save('snt-rev-check',ck);
+    document.querySelectorAll('#checklist input').forEach(function(i){i.checked=false});
+  });
+
+  // Autoévaluation
+  var items=[
+    ['donner le sens français des commandes turtle',1],
+    ["écrire la ligne d'import et expliquer à quoi elle sert",2],
+    ['dire combien de tours fait une boucle et quelles valeurs prend sa variable',3],
+    ['dire si une ligne est dans la boucle ou hors de la boucle',4],
+    ['compter les exécutions dans deux boucles imbriquées',5],
+    ["dessiner le trajet d'un programme sur une grille",6],
+    ['reconnaître SyntaxError, IndentationError et NameError',7],
+    ['définir et appeler une fonction',8],
+    ["écrire seul le programme d'une figure avec une boucle",9]
+  ];
+  var st=load('snt-rev-self',{});
+  var body=document.getElementById('selfBody');
+  items.forEach(function(it,n){
+    var tr=document.createElement('tr');
+    var opts=[['ok','Acquis'],['mid','Presque'],['ko','À revoir']].map(function(o){
+      return '<label><input type="radio" name="s'+n+'" id="s'+n+o[0]+'" value="'+o[0]+'"'+(st[n]===o[0]?' checked':'')+'><span>'+o[1]+'</span></label>';
+    }).join('');
+    tr.innerHTML='<td>'+it[0]+'</td><td><a href="#fiche-'+it[1]+'">'+it[1]+'</a></td><td><div class="lvl" role="radiogroup" aria-label="'+it[0]+'">'+opts+'</div></td>';
+    body.appendChild(tr);
+  });
+  function score(){
+    var c={ok:0,mid:0,ko:0};
+    Object.keys(st).forEach(function(k){if(c[st[k]]!==undefined)c[st[k]]++});
+    document.getElementById('nOk').textContent=c.ok;
+    document.getElementById('nMid').textContent=c.mid;
+    document.getElementById('nKo').textContent=c.ko;
+    var t=items.length;
+    document.getElementById('bOk').style.width=(c.ok/t*100)+'%';
+    document.getElementById('bMid').style.width=(c.mid/t*100)+'%';
+    document.getElementById('bKo').style.width=(c.ko/t*100)+'%';
+  }
+  body.addEventListener('change',function(e){
+    if(e.target.type!=='radio')return;
+    st[e.target.name.slice(1)]=e.target.value;save('snt-rev-self',st);score();
+  });
+  score();
+
+  // Navigation active
+  var links=[].slice.call(document.querySelectorAll('#nav a'));
+  var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'))});
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){
+          var i=secs.indexOf(e.target);
+          links.forEach(function(l,j){l.classList.toggle('on',i===j)});
+          links[i].scrollIntoView({block:'nearest',inline:'nearest'});
+        }
+      });
+    },{rootMargin:'-30% 0px -60% 0px'});
+    secs.forEach(function(s){io.observe(s)});
+  }
+})();
+</script>
+</body>
+</html>
